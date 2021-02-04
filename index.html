@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #map {
+            width: 100%;
+            height: 580px;
+            box-shadow: 3px 3px 3px #000000;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Melo</title>
+    <link rel="stylesheet" href=" https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src=" https://unpkg.com/leaflet@1.6.0/dist/leaflet.js "></script>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+    <div id='map'>
+    </div>
+    <script>
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+                + 'contributors',
+            maxZoom: 18
+        });
+
+        var cities = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+            layers: 'ciudades',
+            format: 'image/png',
+            transparent: true,
+            tiled: true,
+            attribution: "Natural Earth",
+        });
+
+        var hidro = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+            layers: 'hidrografia',
+            format: 'image/png',
+            transparent: true,
+            tiled: true,
+            attribution: "Natural Earth",
+        });
+
+        var pais = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+            layers: 'paises',
+            format: 'image/png',
+            transparent: true,
+            tiled: true,
+            attribution: "Natural Earth",
+        });
+
+        var map = L.map('map', {
+            center: [1.6218033672028550, -75.6107437926327],
+            zoom: 15,
+            layers: [osm, cities, hidro, pais],
+            scrollWheelZoom: false,
+        });
+        L.control.scale().addTo(map);
+
+        var marker_Plaza = L.marker([1.614982888149760, -75.613279347193], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Plaza Santander')
+            .openPopup();
+
+
+        var myIcon = L.icon({
+            iconUrl: ' http://mappinggis.com/wp-content/uploads/2015/03/logo_mappinggis_32331.png',
+            iconSize: [30, 30],
+            popupAnchor: [-1, -10]
+        });
+
+        var marker_flor = L.marker([1.614982888149760, -75.61391234877193], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Alcaldia de Florencia')
+            .openPopup();
+
+        var myIcon_flor = L.icon({
+            iconUrl: ' http://mappinggis.com/wp-content/uploads/2015/03/logo_mappinggis_32331.png',
+            iconSize: [25, 25],
+            popupAnchor: [-1, -10]
+        });
+        var circle = L.circle([1.614982888149760, -75.61391234877193], 500, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        var polygon = L.polygon([
+            [1.6151760914590738, -75.61368964896727],
+            [1.6153897165703186, -75.61304532913442],
+            [1.6147010146386451, -75.61283161909083],
+            [1.6145256506835823, -75.6134982668387]
+        ]).addTo(map)
+            .bindPopup('Plaza Santander');
+        var pointA = new L.LatLng(1.6201390101112667, -75.60515351258017);
+        var pointB = new L.LatLng(1.6188255639903182, -75.60645887541928);
+        var pointC = new L.LatLng(1.6193846947362514, -75.60695958753858);
+        var pointD = new L.LatLng(1.6201277864774035, -75.60884412342212);
+        var pointE = new L.LatLng(1.620389315231975, -75.609656089);
+        var pointF = new L.LatLng(1.6208345010044374, -75.60969278642341);
+        var pointG = new L.LatLng(1.6211034162760332, -75.60868829029842);
+        var pointH = new L.LatLng(1.6219622357358412, -75.60794292327888);
+        var pointI = new L.LatLng(1.6227859070361774, -75.60762269296298);
+        var pointJ = new L.LatLng(1.6231736905215661, -75.60735654868654);
+        var pointK = new L.LatLng(1.6238590751028885, -75.6063370807921);
+        var pointL = new L.LatLng(1.6248104967298194, -75.60564691004701);
+        var pointM = new L.LatLng(1.6251306432375856, -75.6045282019248);
+        var pointN = new L.LatLng(1.625707808678696, -75.60374330185522);
+        var pointO = new L.LatLng(1.627389703840041, -75.60252535348307);
+        var pointP = new L.LatLng(1.6289453428565321, -75.60210583793724);
+        var pointQ = new L.LatLng(1.6295833857735158, -75.6022418066483);
+        var pointR = new L.LatLng(1.6336742215705797, -75.60608633897846);
+        var pointS = new L.LatLng(1.6343934207002035, -75.60567810073223);
+        var latlngs = [pointA, pointB, pointC, pointD, pointE, pointF, pointG, pointH, pointI, pointJ, pointK, pointL, pointM, pointN, pointO, pointP, pointQ, pointR, pointS];
+        var polyline = L.polyline(
+            latlngs, { color: 'blue' }
+        )
+            .addTo(map)
+        var marker = L.marker([1.6201841298231974, -75.60510778581164], {
+            draggable: true,
+            title: 'pincha aquí'
+        }).addTo(map)
+            .bindPopup('Universidad de la Amazonia')
+            .openPopup();
+    </script>
+</body>
+
+</html>
